@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berrymoon — Café & Brunch</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brown: #2d2016;
+    --brown-mid: #4a3421;
+    --tan: #b5924c;
+    --matcha: #5a7a3a;
+    --matcha-light: #8fb870;
+    --matcha-pale: #d4e8c2;
+    --cream: #faf6ef;
+    --cream-dark: #f0e8d8;
+    --white: #ffffff;
+    --text: #1e1409;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 3rem;
+    background: rgba(250,246,239,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(45,32,22,0.1);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.15em;
+    color: var(--brown);
+    text-transform: uppercase;
+  }
+  .nav-logo span { font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav a {
+    text-decoration: none; color: var(--brown); font-size: 0.78rem;
+    letter-spacing: 0.18em; text-transform: uppercase; font-weight: 400;
+    position: relative; padding-bottom: 2px;
+    transition: color 0.3s;
+  }
+  nav a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1px; background: var(--matcha);
+    transition: width 0.3s;
+  }
+  nav a:hover { color: var(--matcha); }
+  nav a:hover::after { width: 100%; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem 6rem;
+    position: relative; z-index: 2;
+  }
+  .hero-tag {
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--matcha); margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-tag::before {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--matcha);
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 1;
+    color: var(--brown);
+    margin-bottom: 0.3rem;
+  }
+  .hero-title-script {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+    font-style: italic; font-weight: 300;
+    color: var(--matcha);
+    display: block; margin-bottom: 2rem;
+  }
+  .hero-desc {
+    font-size: 1rem; line-height: 1.8; color: var(--brown-mid);
+    max-width: 360px; margin-bottom: 3rem;
+  }
+  .hero-info {
+    display: flex; gap: 2.5rem;
+    font-size: 0.75rem; letter-spacing: 0.1em; color: var(--brown-mid);
+  }
+  .hero-info strong { display: block; color: var(--brown); font-weight: 500; font-size: 0.85rem; margin-bottom: 0.2rem; }
+  .hero-right {
+    position: relative; overflow: hidden;
+    background: var(--matcha);
+  }
+  .hero-right-inner {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #3d5a28 0%, #1e3010 60%, #0d1a07 100%);
+  }
+  .hero-circles {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .circle-lg {
+    width: 420px; height: 420px; border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    position: absolute;
+    animation: float 8s ease-in-out infinite;
+  }
+  .circle-md {
+    width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, rgba(143,184,112,0.4), rgba(90,122,58,0.2));
+    border: 1px solid rgba(143,184,112,0.3);
+    position: absolute; top: 20%; left: 15%;
+    animation: float 6s ease-in-out infinite reverse;
+  }
+  .circle-sm {
+    width: 160px; height: 160px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    position: absolute; bottom: 25%; right: 12%;
+    animation: float 7s ease-in-out infinite;
+  }
+  .hero-right-text {
+    position: absolute; bottom: 3rem; left: 3rem; right: 3rem;
+    color: rgba(255,255,255,0.6); font-size: 0.7rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+  }
+  .matcha-bowl-art {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 300px; height: 300px;
+  }
+  .matcha-bowl-art svg { width: 100%; height: 100%; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(3deg); }
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--brown-mid); z-index: 10;
+    animation: fadeInUp 2s 1s both;
+  }
+  .scroll-hint-line {
+    width: 1px; height: 40px; background: var(--brown-mid);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ── SECTION TITLES ── */
+  .section { padding: 6rem 6rem; }
+  .section-label {
+    font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--matcha); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    color: var(--brown); line-height: 1.1; margin-bottom: 1.5rem;
+  }
+  .section-title em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-weight: 300; color: var(--matcha);
+  }
+
+  /* ── MATCHA VARIETIES ── */
+  .matcha-section {
+    background: var(--brown);
+    padding: 6rem;
+    position: relative; overflow: hidden;
+  }
+  .matcha-section .section-title { color: var(--cream); }
+  .matcha-section .section-label { color: var(--matcha-light); }
+  .matcha-bg-circle {
+    position: absolute; right: -100px; top: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: rgba(90,122,58,0.15);
+    pointer-events: none;
+  }
+  .matcha-varieties {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    margin-top: 3rem;
+  }
+  .variety-card {
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 2.5rem 2rem;
+    border-radius: 2px;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+  .variety-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--matcha), var(--matcha-light));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .variety-card:hover { border-color: rgba(143,184,112,0.3); transform: translateY(-4px); }
+  .variety-card:hover::before { transform: scaleX(1); }
+  .variety-name {
+    font-family: 'DM Serif Display', serif; font-size: 1.5rem;
+    color: var(--cream); margin-bottom: 0.5rem;
+  }
+  .variety-price {
+    font-size: 0.85rem; color: var(--matcha-light);
+    letter-spacing: 0.1em; margin-bottom: 1.2rem;
+  }
+  .variety-desc {
+    font-size: 0.82rem; line-height: 1.7; color: rgba(250,246,239,0.6);
+    margin-bottom: 1.5rem;
+  }
+  .variety-bars { display: flex; flex-direction: column; gap: 0.6rem; }
+  .bar-row { display: flex; align-items: center; gap: 1rem; }
+  .bar-label {
+    font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(250,246,239,0.4); width: 70px; flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1; height: 2px; background: rgba(255,255,255,0.1);
+    border-radius: 1px; position: relative; overflow: visible;
+  }
+  .bar-fill {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    height: 2px; background: var(--matcha-light);
+  }
+  .bar-dot {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 8px; height: 4px; background: var(--matcha-light);
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(143,184,112,0.6);
+  }
+
+  /* ── MENU GRID ── */
+  .menu-section { background: var(--cream-dark); }
+  .menu-tabs {
+    display: flex; gap: 0; margin-bottom: 3rem;
+    border-bottom: 1px solid rgba(45,32,22,0.15);
+  }
+  .menu-tab {
+    padding: 0.8rem 1.8rem;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; border-bottom: 2px solid transparent;
+    margin-bottom: -1px; transition: all 0.3s; color: var(--brown-mid);
+    background: none; border-top: none; border-left: none; border-right: none;
+    font-family: 'Jost', sans-serif; font-weight: 400;
+  }
+  .menu-tab.active { border-bottom-color: var(--matcha); color: var(--matcha); }
+  .menu-tab:hover { color: var(--brown); }
+
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  .menu-category { margin-bottom: 3rem; }
+  .menu-category-title {
+    font-family: 'DM Serif Display', serif; font-size: 1.6rem;
+    color: var(--brown); margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(45,32,22,0.12);
+  }
+  .menu-items { display: flex; flex-direction: column; gap: 0; }
+  .menu-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.9rem 0;
+    border-bottom: 1px dashed rgba(45,32,22,0.08);
+    transition: background 0.2s;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .item-name { font-size: 0.92rem; color: var(--brown); font-weight: 300; }
+  .item-prices {
+    display: flex; gap: 1.2rem;
+    font-size: 0.82rem; color: var(--brown-mid);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0; margin-left: 1rem;
+  }
+  .item-prices .price { color: var(--brown); font-weight: 400; }
+  .size-label {
+    font-size: 0.62rem; color: rgba(45,32,22,0.4);
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+
+  /* Signature drinks visual cards */
+  .signature-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .sig-card {
+    background: var(--cream); border-radius: 4px;
+    overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(45,32,22,0.08);
+  }
+  .sig-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(45,32,22,0.1); }
+  .sig-card-img {
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; background: var(--matcha-pale);
+    position: relative; overflow: hidden;
+  }
+  .sig-card-img-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--matcha-pale), var(--cream-dark));
+  }
+  .sig-card-img span { position: relative; z-index: 1; }
+  .sig-card-body { padding: 1.2rem 1.4rem; }
+  .sig-card-name {
+    font-family: 'DM Serif Display', serif; font-size: 1rem;
+    color: var(--brown); margin-bottom: 0.3rem;
+  }
+  .sig-card-ingredients {
+    font-size: 0.72rem; color: var(--brown-mid); line-height: 1.5;
+    font-style: italic; margin-bottom: 0.8rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 0.9rem;
+  }
+  .sig-card-price {
+    font-size: 0.8rem; color: var(--matcha); font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* Bakery cards */
+  .bakery-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .bakery-card {
+    background: var(--cream); border-radius: 4px;
+    padding: 1.5rem 1.2rem; text-align: center;
+    border: 1px solid rgba(45,32,22,0.08);
+    transition: transform 0.3s;
+  }
+  .bakery-card:hover { transform: translateY(-4px); }
+  .bakery-emoji { font-size: 2.5rem; margin-bottom: 0.8rem; }
+  .bakery-name { font-family: 'DM Serif Display', serif; font-size: 0.95rem; color: var(--brown); margin-bottom: 0.3rem; }
+  .bakery-price { font-size: 0.78rem; color: var(--matcha); font-weight: 500; }
+
+  /* ── PREMIUM MATCHA INFO ── */
+  .tea-origin {
+    padding: 6rem;
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .tea-origin-visual {
+    position: relative;
+  }
+  .tea-origin-card {
+    background: var(--matcha);
+    border-radius: 4px; padding: 3rem;
+    color: var(--cream);
+  }
+  .tea-blend-label {
+    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--matcha-light); margin-bottom: 1.5rem;
+  }
+  .tea-blend-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300; font-style: italic;
+    margin-bottom: 2rem; line-height: 1.2;
+  }
+  .tea-strains { display: flex; flex-direction: column; gap: 1.2rem; }
+  .tea-strain-name {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--matcha-light); margin-bottom: 0.3rem;
+  }
+  .tea-strain-origin {
+    font-size: 0.78rem; color: rgba(250,246,239,0.7); line-height: 1.5;
+  }
+  .tea-origin-text { }
+  .tea-origin-text .section-title { font-size: 2.5rem; }
+  .tea-origin-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-style: italic; font-weight: 300;
+    color: var(--brown-mid); line-height: 1.6; margin-bottom: 2rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--matcha-light);
+  }
+  .tea-origin-body { font-size: 0.88rem; line-height: 1.9; color: var(--brown-mid); }
+
+  /* ── ADD-ONS ── */
+  .addons-section { padding: 5rem 6rem; background: var(--cream-dark); }
+  .addons-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;
+    margin-top: 3rem;
+  }
+  .addon-group-title {
+    font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+    color: var(--brown); margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem; border-bottom: 1px solid rgba(45,32,22,0.15);
+  }
+  .addon-item {
+    display: flex; justify-content: space-between;
+    padding: 0.55rem 0;
+    font-size: 0.85rem; color: var(--brown-mid);
+    border-bottom: 1px dotted rgba(45,32,22,0.1);
+  }
+  .addon-item:last-child { border-bottom: none; }
+  .addon-price { color: var(--matcha); font-weight: 500; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--brown); color: var(--cream);
+    padding: 4rem 6rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem;
+    align-items: start;
+  }
+  .footer-brand {
+    font-family: 'DM Serif Display', serif; font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .footer-brand span { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; color: var(--matcha-light); }
+  .footer-tagline {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(250,246,239,0.4); margin-bottom: 1.5rem;
+  }
+  .footer-social {
+    font-size: 0.8rem; color: var(--matcha-light);
+  }
+  .footer-col-title {
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: rgba(250,246,239,0.4); margin-bottom: 1rem;
+  }
+  .footer-info { font-size: 0.85rem; line-height: 2; color: rgba(250,246,239,0.7); }
+  .footer-bottom {
+    background: rgba(0,0,0,0.2); padding: 1rem 6rem;
+    display: flex; justify-content: space-between;
+    font-size: 0.68rem; letter-spacing: 0.1em;
+    color: rgba(250,246,239,0.3);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { opacity: 0; animation: fadeInUp 0.8s ease forwards; }
+  .fade-in-1 { animation-delay: 0.1s; }
+  .fade-in-2 { animation-delay: 0.3s; }
+  .fade-in-3 { animation-delay: 0.5s; }
+  .fade-in-4 { animation-delay: 0.7s; }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 7rem 2.5rem 3rem; }
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1.5rem; }
+    .section, .matcha-section, .tea-origin, .addons-section { padding: 4rem 2.5rem; }
+    .matcha-varieties { grid-template-columns: 1fr; }
+    .signature-grid { grid-template-columns: 1fr 1fr; }
+    .bakery-grid { grid-template-columns: 1fr 1fr; }
+    .tea-origin { grid-template-columns: 1fr; gap: 3rem; }
+    .addons-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; padding: 3rem 2.5rem; }
+    .footer-bottom { padding: 1rem 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BERRYMOON<span>Menu</span></div>
+  <ul>
+    <li><a href="#drinks">Drinks</a></li>
+    <li><a href="#matcha">Premium Matcha</a></li>
+    <li><a href="#brunch">Brunch</a></li>
+    <li><a href="#info">Visit Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag fade-in fade-in-1">Café & Brunch · Est. 2024</div>
+    <h1 class="hero-title fade-in fade-in-2">
+      BERRYMOON
+      <em class="hero-title-script">Menu</em>
+    </h1>
+    <p class="hero-desc fade-in fade-in-3">
+      A sanctuary for premium matcha, specialty coffee, and all-day brunch. Every cup brewed with intention — three heirloom tea cultivars blended to perfection.
+    </p>
+    <div class="hero-info fade-in fade-in-4">
+      <div>
+        <strong>Hours</strong>
+        Every Day<br>7:00 – 22:00
+      </div>
+      <div>
+        <strong>Find Us</strong>
+        134, Ba Mươi Tháng Tư<br>082 76 2222 3
+      </div>
+      <div>
+        <strong>Follow</strong>
+        @berrymoon.cafe
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner"></div>
+    <div class="hero-circles">
+      <div class="circle-lg"></div>
+      <div class="circle-md"></div>
+      <div class="circle-sm"></div>
+      <div class="matcha-bowl-art">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="90" fill="rgba(90,122,58,0.2)" stroke="rgba(143,184,112,0.4)" stroke-width="1"/>
+          <circle cx="100" cy="100" r="65" fill="rgba(90,122,58,0.3)"/>
+          <circle cx="100" cy="100" r="8" fill="rgba(143,184,112,0.8)"/>
+          <line x1="100" y1="35" x2="100" y2="165" stroke="rgba(143,184,112,0.3)" stroke-width="0.5"/>
+          <line x1="35" y1="100" x2="165" y2="100" stroke="rgba(143,184,112,0.3)" stroke-width="0.5"/>
+          <ellipse cx="100" cy="100" rx="65" ry="20" fill="rgba(143,184,112,0.15)" stroke="rgba(143,184,112,0.2)" stroke-width="0.5"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-right-text">Golden Mornings · Cozy Bites · All-day Brunching</div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-hint-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- DRINKS MENU -->
+<section id="drinks" class="section menu-section">
+  <div class="section-label reveal">Our Menu</div>
+  <h2 class="section-title reveal">Crafted <em>Drinks</em></h2>
+
+  <div class="menu-tabs reveal">
+    <button class="menu-tab active" onclick="switchTab('matcha-drinks')">Matcha</button>
+    <button class="menu-tab" onclick="switchTab('houjicha')">Houjicha</button>
+    <button class="menu-tab" onclick="switchTab('coffee')">Cà Phê</button>
+    <button class="menu-tab" onclick="switchTab('tea')">Trà & Cacao</button>
+    <button class="menu-tab" onclick="switchTab('signature')">Signature</button>
+  </div>
+
+  <!-- MATCHA DRINKS -->
+  <div id="matcha-drinks" class="menu-panel active">
+    <div class="menu-category">
+      <div class="menu-category-title">Matcha</div>
+      <div class="menu-items">
+        <div class="menu-item"><span class="item-name">Matcha Latte</span><span class="item-prices"><span class="price">35</span><span class="price">45</span></span></div>
+        <div class="menu-item"><span class="item-name">Matcha Macchiato</span><span class="item-prices"><span class="price">38</span><span class="price">48</span></span></div>
+        <div class="menu-item"><span class="item-name">Matcha Sữa Gấu</span><span class="item-prices"><span class="price">38</span><span class="price">48</span></span></div>
+        <div class="menu-item"><span class="item-name">Matcha Dâu / Xoài / Dưa Lưới</span><span class="item-prices"><span class="price">38</span><span class="price">50</span></span></div>
+        <div class="menu-item"><span class="item-name">Matcha Dừa</span><span class="item-prices"><span class="price">38</span><span class="price">53</span></span></div>
+        <div class="menu-item"><span class="item-name">Matcha Cà Phê</span><span class="item-prices"><span class="price">38</span><span class="price">48</span></span></div>
+        <div class="menu-item"><span class="item-name">Triple Matcha ★</span><span class="item-prices"><span class="price">45</span><span class="price">55</span></span></div>
+        <div class="menu-item"><span class="item-name">Matcha Misu ★</span><span class="item-prices"><span class="price">49</span><span class="price">59</span></span></div>
+        <div class="menu-item"><span class="item-name">Matcha Lài Cloud ★★</span><span class="item-prices"><span class="price">40</span><span class="price">53</span></span></div>
+        <div class="menu-item"><span class="item-name">Matcha Bánh Chuối</span><span class="item-prices"><span class="price">—</span><span class="price">65</span></span></div>
+        <div class="menu-item"><span class="item-name">Yuzu Matcha</span><span class="item-prices"><span class="price">—</span><span class="price">55</span></span></div>
+        <div class="menu-item"><span class="item-name">Matcha Tàu Hũ ★</span><span class="item-prices"><span class="price">40</span><span class="price">50</span></span></div>
+      </div>
+      <div style="margin-top:1rem; font-size:0.72rem; color:var(--brown-mid); font-style:italic;">Prices shown: small · large · ★ Recommended</div>
+    </div>
+
+    <div class="menu-category">
+      <div class="menu-category-title">Đá Xay (Blended)</div>
+      <div class="menu-items">
+        <div class="menu-item"><span class="item-name">Matcha Đá Xay ★★</span><span class="item-prices"><span class="price">53</span></span></div>
+        <div class="menu-item"><span class="item-name">Cookie N Cream ★</span><span class="item-prices"><span class="price">45</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOUJICHA -->
+  <div id="houjicha" class="menu-panel">
+    <div class="menu-category">
+      <div class="menu-category-title">Houjicha</div>
+      <div class="menu-items">
+        <div class="menu-item"><span class="item-name">Houjicha Latte ★</span><span class="item-prices"><span class="price">35</span><span class="price">45</span></span></div>
+        <div class="menu-item"><span class="item-name">Houjicha Macchiato</span><span class="item-prices"><span class="price">38</span><span class="price">48</span></span></div>
+        <div class="menu-item"><span class="item-name">Houjicha Sữa Gấu</span><span class="item-prices"><span class="price">38</span><span class="price">48</span></span></div>
+        <div class="menu-item"><span class="item-name">Houjicha Dâu</span><span class="item-prices"><span class="price">38</span><span class="price">50</span></span></div>
+        <div class="menu-item"><span class="item-name">Houjicha Dừa ★</span><span class="item-prices"><span class="price">38</span><span class="price">53</span></span></div>
+      </div>
+      <div style="margin-top:1rem; font-size:0.72rem; color:var(--brown-mid); font-style:italic;">Prices shown: small · large</div>
+    </div>
+  </div>
+
+  <!-- COFFEE -->
+  <div id="coffee" class="menu-panel">
+    <div class="menu-category">
+      <div class="menu-category-title">Cà Phê (Coffee)</div>
+      <div class="menu-items">
+        <div class="menu-item"><span class="item-name">Đen Đá (Black Iced)</span><span class="item-prices"><span class="price">15</span></span></div>
+        <div class="menu-item"><span class="item-name">Sữa Đá ★</span><span class="item-prices"><span class="price">18</span></span></div>
+        <div class="menu-item"><span class="item-name">Bạc Xỉu ★</span><span class="item-prices"><span class="price">20</span></span></div>
+        <div class="menu-item"><span class="item-name">Cà Phê Macchiato</span><span class="item-prices"><span class="price">25</span></span></div>
+        <div class="menu-item"><span class="item-name">Cà Phê Sữa Gấu ★</span><span class="item-prices"><span class="price">38</span></span></div>
+        <div class="menu-item"><span class="item-name">Cà Phê Caramel ★★</span><span class="item-prices"><span class="price">32</span></span></div>
+        <div class="menu-item"><span class="item-name">Cà Phê Latte</span><span class="item-prices"><span class="price">25</span></span></div>
+        <div class="menu-item"><span class="item-name">Americano / Coldbrew</span><span class="item-prices"><span class="price">20</span></span></div>
+        <div class="menu-item"><span class="item-name">Coldbrew Ổi ★★</span><span class="item-prices"><span class="price">35</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEA & CACAO -->
+  <div id="tea" class="menu-panel">
+    <div class="menu-category">
+      <div class="menu-category-title">Trà Trái Cây (Fruit Tea)</div>
+      <div class="menu-items">
+        <div class="menu-item"><span class="item-name">Trà Dâu</span><span class="item-prices"><span class="price">35</span></span></div>
+        <div class="menu-item"><span class="item-name">Trà Tắc Thanh Yên</span><span class="item-prices"><span class="price">30</span></span></div>
+        <div class="menu-item"><span class="item-name">Trà Dưa Hấu ★</span><span class="item-prices"><span class="price">40</span></span></div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <div class="menu-category-title">Trà Sữa <span style="font-size:0.8rem;font-weight:300;font-style:italic;">(includes black tapioca pearls)</span></div>
+      <div class="menu-items">
+        <div class="menu-item"><span class="item-name">Trà Sữa Thái Đỏ</span><span class="item-prices"><span class="price">30</span></span></div>
+        <div class="menu-item"><span class="item-name">Thái Đỏ Macchiato</span><span class="item-prices"><span class="price">35</span></span></div>
+        <div class="menu-item"><span class="item-name">Trà Sữa Oolong</span><span class="item-prices"><span class="price">30</span></span></div>
+        <div class="menu-item"><span class="item-name">Trà Sữa Lài ★★</span><span class="item-prices"><span class="price">30</span></span></div>
+        <div class="menu-item"><span class="item-name">Hồng Trà Sữa ★</span><span class="item-prices"><span class="price">30</span></span></div>
+      </div>
+    </div>
+    <div class="menu-category">
+      <div class="menu-category-title">Cacao</div>
+      <div class="menu-items">
+        <div class="menu-item"><span class="item-name">Cacao Latte ★</span><span class="item-prices"><span class="price">25</span><span class="price">35</span></span></div>
+        <div class="menu-item"><span class="item-name">Cacao Sữa Gấu</span><span class="item-prices"><span class="price">30</span><span class="price">40</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNATURE -->
+  <div id="signature" class="menu-panel">
+    <p style="font-size:0.85rem; color:var(--brown-mid); margin-bottom:2rem; font-style:italic; font-family:'Cormorant Garamond',serif; font-size:1.1rem;">Berrymoon's most celebrated creations — each drink a small work of art.</p>
+    <div class="signature-grid">
+      <div class="sig-card">
+        <div class="sig-card-img"><div class="sig-card-img-bg"></div><span>🍵</span></div>
+        <div class="sig-card-body">
+          <div class="sig-card-name">Berrymoon A+</div>
+          <div class="sig-card-ingredients">Matcha · Sweetened milk · Fresh milk of choice</div>
+          <div class="sig-card-price">35 / 45</div>
+        </div>
+      </div>
+      <div class="sig-card">
+        <div class="sig-card-img"><div class="sig-card-img-bg"></div><span>🍌</span></div>
+        <div class="sig-card-body">
+          <div class="sig-card-name">Bánh Chuối</div>
+          <div class="sig-card-ingredients">Matcha · Fresh milk · Sweetened milk · Banana pudding cake</div>
+          <div class="sig-card-price">65</div>
+        </div>
+      </div>
+      <div class="sig-card">
+        <div class="sig-card-img"><div class="sig-card-img-bg"></div><span>✨</span></div>
+        <div class="sig-card-body">
+          <div class="sig-card-name">Triple Matcha</div>
+          <div class="sig-card-ingredients">Matcha · Fresh milk · Sweetened milk · Jelly · Matcha macchiato</div>
+          <div class="sig-card-price">45 / 55</div>
+        </div>
+      </div>
+      <div class="sig-card">
+        <div class="sig-card-img"><div class="sig-card-img-bg"></div><span>🍦</span></div>
+        <div class="sig-card-body">
+          <div class="sig-card-name">Matcha Misu</div>
+          <div class="sig-card-ingredients">Matcha · Sweetened milk · Misu cream · Fresh milk of choice</div>
+          <div class="sig-card-price">49 / 59</div>
+        </div>
+      </div>
+      <div class="sig-card">
+        <div class="sig-card-img"><div class="sig-card-img-bg"></div><span>☁️</span></div>
+        <div class="sig-card-body">
+          <div class="sig-card-name">Lài Cloud</div>
+          <div class="sig-card-ingredients">Matcha cloud cream · Jasmine milk</div>
+          <div class="sig-card-price">40 / 53</div>
+        </div>
+      </div>
+      <div class="sig-card">
+        <div class="sig-card-img"><div class="sig-card-img-bg"></div><span>🧊</span></div>
+        <div class="sig-card-body">
+          <div class="sig-card-name">Matcha Đá Xay</div>
+          <div class="sig-card-ingredients">Matcha coldwhisked · Fresh milk · Macchiato cream · Secret ingredient</div>
+          <div class="sig-card-price">53</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREMIUM MATCHA -->
+<section id="matcha" class="matcha-section">
+  <div class="matcha-bg-circle"></div>
+  <div class="section-label reveal" style="color:var(--matcha-light)">Berrymoon's</div>
+  <h2 class="section-title reveal" style="color:var(--cream)">Premium <em style="color:var(--matcha-light)">Matcha</em></h2>
+  <p class="reveal" style="color:rgba(250,246,239,0.6); font-size:0.9rem; margin-bottom:3rem; font-style:italic; font-family:'Cormorant Garamond',serif; font-size:1.1rem;">
+    All products blended from three distinct tea cultivars — each chosen for its unique character.
+  </p>
+
+  <div class="matcha-varieties">
+    <!-- Matcha Nguyệt -->
+    <div class="variety-card reveal">
+      <div class="variety-name">Matcha Nguyệt</div>
+      <div class="variety-price">42 · 63</div>
+      <div class="variety-desc">Strong tea character, clean tea fragrance, refreshing, low fat, light lingering astringency.</div>
+      <div class="variety-bars">
+        <div class="bar-row">
+          <div class="bar-label">Umami</div>
+          <div class="bar-track"><div class="bar-dot" style="left:40%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Astringency</div>
+          <div class="bar-track"><div class="bar-dot" style="left:65%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Color</div>
+          <div class="bar-track"><div class="bar-dot" style="left:70%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Texture</div>
+          <div class="bar-track"><div class="bar-dot" style="left:25%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Matcha Phong -->
+    <div class="variety-card reveal">
+      <div class="variety-name">Matcha Phong</div>
+      <div class="variety-price">43 · 65</div>
+      <div class="variety-desc">Balanced profile, sweet and creamy finish, delicate floral scent, mild pleasant astringency.</div>
+      <div class="variety-bars">
+        <div class="bar-row">
+          <div class="bar-label">Umami</div>
+          <div class="bar-track"><div class="bar-dot" style="left:58%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Astringency</div>
+          <div class="bar-track"><div class="bar-dot" style="left:45%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Color</div>
+          <div class="bar-track"><div class="bar-dot" style="left:65%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Texture</div>
+          <div class="bar-track"><div class="bar-dot" style="left:50%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Matcha Hoa -->
+    <div class="variety-card reveal">
+      <div class="variety-name">Matcha Hoa</div>
+      <div class="variety-price">49 · 73</div>
+      <div class="variety-desc">Rich sweetness, nutty & creamy aroma, low astringency, long natural sweet finish. Very drinkable.</div>
+      <div class="variety-bars">
+        <div class="bar-row">
+          <div class="bar-label">Umami</div>
+          <div class="bar-track"><div class="bar-dot" style="left:80%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Astringency</div>
+          <div class="bar-track"><div class="bar-dot" style="left:15%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Color</div>
+          <div class="bar-track"><div class="bar-dot" style="left:60%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Texture</div>
+          <div class="bar-track"><div class="bar-dot" style="left:55%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Matcha Sasae -->
+    <div class="variety-card reveal" style="grid-column: 1 / -1; max-width: 400px;">
+      <div class="variety-name">Matcha Sasae</div>
+      <div class="variety-price">49 · 73</div>
+      <div class="variety-desc">Earthy like almonds and young beans, with a lingering sweet aftertaste. A truly distinctive cup.</div>
+      <div class="variety-bars">
+        <div class="bar-row">
+          <div class="bar-label">Umami</div>
+          <div class="bar-track"><div class="bar-dot" style="left:82%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Astringency</div>
+          <div class="bar-track"><div class="bar-dot" style="left:18%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Color</div>
+          <div class="bar-track"><div class="bar-dot" style="left:62%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Texture</div>
+          <div class="bar-track"><div class="bar-dot" style="left:55%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEA ORIGINS -->
+<section class="tea-origin">
+  <div class="tea-origin-visual reveal">
+    <div class="tea-origin-card">
+      <div class="tea-blend-label">Three Cultivar Blend</div>
+      <div class="tea-blend-title">The Art of Matcha Blending</div>
+      <div class="tea-strains">
+        <div>
+          <div class="tea-strain-name">Okumidori · Shizuoka</div>
+          <div class="tea-strain-origin">Fresh & vivid color, gentle sweetness balanced with a touch of astringency. Only 3% of Japan's tea-growing area.</div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:1.2rem">
+          <div class="tea-strain-name">Asahi · Kyoto</div>
+          <div class="tea-strain-origin">Large, thin and soft leaves with a silky touch. Young buds produce rich aroma and deep flavor — rare and difficult to cultivate.</div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:1.2rem">
+          <div class="tea-strain-name">Saemidori · Kagoshima</div>
+          <div class="tea-strain-origin">Low astringency, full-bodied and easy drinking, with a strong character and nut-like aroma. Born in warm climates, beloved for its extraordinary flavor.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tea-origin-text reveal">
+    <div class="section-label">Our Philosophy</div>
+    <h2 class="section-title">Where Tea Meets <em>Craft</em></h2>
+    <div class="tea-origin-quote">
+      "Each matcha variety is a conversation between soil, climate, and the hands that tend it."
+    </div>
+    <p class="tea-origin-body">
+      At Berrymoon, we source three distinct Japanese tea cultivars and blend them with precision to create our signature matcha profiles. Whether you prefer the bold character of Nguyệt, the balanced elegance of Phong, or the sweet richness of Hoa and Sasae — each cup tells a different story of Japanese tea terroir.
+      <br><br>
+      Our premium matcha is whisked fresh to order using traditional chasen bamboo whisks, unlocking the full umami depth and vibrantly green color that only ceremonial-grade matcha can deliver.
+    </p>
+  </div>
+</section>
+
+<!-- BRUNCH -->
+<section id="brunch" class="section" style="background:var(--cream);">
+  <div class="section-label reveal">All-Day</div>
+  <h2 class="section-title reveal">Brunch <em>Bites</em></h2>
+  <p class="reveal" style="font-size:0.88rem; color:var(--brown-mid); margin-bottom:2.5rem; font-style:italic; font-family:'Cormorant Garamond', serif; font-size:1.05rem;">Golden mornings call for something buttery and flaky. More coming soon!</p>
+
+  <div class="menu-category reveal">
+    <div class="menu-category-title">Danish</div>
+    <div class="bakery-grid">
+      <div class="bakery-card">
+        <div class="bakery-emoji">🥐</div>
+        <div class="bakery-name">Peach Danish</div>
+        <div class="bakery-price">35</div>
+      </div>
+      <div class="bakery-card">
+        <div class="bakery-emoji">🥓</div>
+        <div class="bakery-name">Bacon Sausage</div>
+        <div class="bakery-price">38</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-category reveal">
+    <div class="menu-category-title">Croissant</div>
+    <div class="bakery-grid">
+      <div class="bakery-card">
+        <div class="bakery-emoji">🥐</div>
+        <div class="bakery-name">Plain Croissant</div>
+        <div class="bakery-price">25</div>
+      </div>
+      <div class="bakery-card">
+        <div class="bakery-emoji">🧀</div>
+        <div class="bakery-name">Phô Mai Bơ Tỏi</div>
+        <div class="bakery-price">35</div>
+      </div>
+      <div class="bakery-card">
+        <div class="bakery-emoji">🌰</div>
+        <div class="bakery-name">Hạnh Nhân</div>
+        <div class="bakery-price">35</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-category reveal">
+    <div class="menu-category-title">Others</div>
+    <div class="bakery-grid">
+      <div class="bakery-card">
+        <div class="bakery-emoji">🎀</div>
+        <div class="bakery-name">Bowtie</div>
+        <div class="bakery-price">35</div>
+      </div>
+      <div class="bakery-card">
+        <div class="bakery-emoji">🍫</div>
+        <div class="bakery-name">Pain Au Choco</div>
+        <div class="bakery-price">35</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:3rem; padding:2rem 2.5rem; background:var(--matcha-pale); border-left:3px solid var(--matcha); border-radius:2px;">
+    <p style="font-family:'DM Serif Display',serif; font-size:1.4rem; color:var(--matcha); margin-bottom:0.5rem;">More Brunch Coming Soon!</p>
+    <p style="font-size:0.85rem; color:var(--brown-mid);">We're working on expanding our all-day brunch menu. Follow @berrymoon.cafe for updates.</p>
+  </div>
+</section>
+
+<!-- ADD-ONS -->
+<section class="addons-section">
+  <div class="section-label reveal">Customize</div>
+  <h2 class="section-title reveal">Add-ons & <em>Toppings</em></h2>
+  <div class="addons-grid">
+    <div class="reveal">
+      <div class="addon-group-title">Milk Options</div>
+      <div class="addon-item"><span>Dalatmilk</span><span class="addon-price">free</span></div>
+      <div class="addon-item"><span>Oatside</span><span class="addon-price">free</span></div>
+      <div class="addon-item"><span>Mix Dalat-Oat</span><span class="addon-price">free</span></div>
+      <div class="addon-item"><span>Sữa Meiji (S)</span><span class="addon-price">+3</span></div>
+      <div class="addon-item"><span>Sữa Meiji (L)</span><span class="addon-price">+5</span></div>
+    </div>
+    <div class="reveal">
+      <div class="addon-group-title">Add-ons</div>
+      <div class="addon-item"><span>Matcha Thêm</span><span class="addon-price">+5</span></div>
+      <div class="addon-item"><span>Coldwhisk</span><span class="addon-price">+3</span></div>
+      <div class="addon-item"><span>Mứt Dâu Thêm</span><span class="addon-price">+5</span></div>
+      <div class="addon-item"><span>Mứt Xoài Thêm</span><span class="addon-price">+5</span></div>
+      <div class="addon-item"><span>Caramel</span><span class="addon-price">+5</span></div>
+      <div class="addon-item"><span>Earl Grey Syrup</span><span class="addon-price">+3</span></div>
+      <div class="addon-item"><span>Vanilla Syrup</span><span class="addon-price">+3</span></div>
+    </div>
+    <div class="reveal">
+      <div class="addon-group-title">Toppings</div>
+      <div class="addon-item"><span>Kem Matcha (viên)</span><span class="addon-price">35</span></div>
+      <div class="addon-item"><span>Kem Macchiato</span><span class="addon-price">+5</span></div>
+      <div class="addon-item"><span>Kem Misu</span><span class="addon-price">+10</span></div>
+      <div class="addon-item"><span>Kem Kinako</span><span class="addon-price">+5</span></div>
+      <div class="addon-item"><span>Tàu Hũ</span><span class="addon-price">+5</span></div>
+      <div class="addon-item"><span>Trân Châu Đen</span><span class="addon-price">+5</span></div>
+      <div class="addon-item"><span>Trân Châu Trắng</span><span class="addon-price">+5</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="info">
+  <div>
+    <div class="footer-brand">BERRYMOON<span>café</span></div>
+    <div class="footer-tagline">Golden Mornings · Cozy Bites · All-day Brunching</div>
+    <div class="footer-social">@berrymoon.cafe</div>
+  </div>
+  <div>
+    <div class="footer-col-title">Visit Us</div>
+    <div class="footer-info">
+      134, Ba Mươi Tháng Tư<br>
+      Open Every Day<br>
+      7:00 – 22:00<br>
+      082 76 2222 3
+    </div>
+  </div>
+  <div>
+    <div class="footer-col-title">Menu</div>
+    <div class="footer-info">
+      Matcha<br>Houjicha<br>Cà Phê<br>Trà & Cacao<br>Brunch Pastries
+    </div>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© Berrymoon Café & Brunch</span>
+  <span>All prices in thousands VND</span>
+</div>
+
+<script>
+  // Tab switching
+  function switchTab(id) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
